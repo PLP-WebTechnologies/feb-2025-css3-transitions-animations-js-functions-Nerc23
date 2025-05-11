@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Animation </title>
+  <style>
+    .animated-button {
+      background-color: #007bff;
+      color: white;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: background-color 0.3s ease; /* Example of a CSS transition */
+    }
+
+    .animated-button:hover {
+      background-color: #0056b3;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    .animated-button.animate {
+      animation: pulse 1s infinite alternate;
+    }
+  </style>
+</head>
+<body>
+
+  <button id="myAnimatedButton" class="animated-button">Click Me!</button>
+  <button id="toggleAnimationButton">Toggle Animation</button>
+
+  <script>
+    const animatedButton = document.getElementById('myAnimatedButton');
+    const toggleButton = document.getElementById('toggleAnimationButton');
+
+    // Load animation preference on page load
+    const animationEnabled = getAnimationPreference();
+    if (animationEnabled) {
+      animatedButton.classList.add('animate');
+      toggleButton.textContent = 'Disable Animation';
+    } else {
+      animatedButton.classList.remove('animate');
+      toggleButton.textContent = 'Enable Animation';
+    }
+
+    // Toggle animation on button click
+    toggleButton.addEventListener('click', () => {
+      const isAnimating = animatedButton.classList.contains('animate');
+      if (isAnimating) {
+        animatedButton.classList.remove('animate');
+        toggleButton.textContent = 'Enable Animation';
+        saveAnimationPreference(false);
+      } else {
+        animatedButton.classList.add('animate');
+        toggleButton.textContent = 'Disable Animation';
+        saveAnimationPreference(true);
+      }
+    });
+  </script>
+
+</body>
+</html>
